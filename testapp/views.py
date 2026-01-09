@@ -15,15 +15,12 @@ def Home(request):
     return render (request,'home.html',context)
 
 
-# Function for adding data to db from frntend 
+# Function for adding data to db from frontend 
 def add_task(request):
     task_name = request.POST['task_name']
     task_desc = request.POST['task_desc']
     Task.objects.create(task_name=task_name,task_desc=task_desc)
     return redirect ('home')
-
-
-# Function for updating and deleting the specific data from db 
 
 def done_task(request,pk):
     task = get_object_or_404(Task,pk=pk)
@@ -38,20 +35,26 @@ def undone_task(request,pk):
     task.save()
     return redirect('home')   
 
+# function for updating the data
 def edit_task(request,pk):
     get_task=get_object_or_404(Task,pk=pk)
     if request.method == 'POST':
         new_task_name = request.POST['task_name']
         new_task_desc = request.POST['task_desc']
-        print(new_task_name,new_task_desc)
         get_task.task_name = new_task_name
         get_task.task_desc = new_task_desc
         get_task.save()
         return redirect('home')
-        
     else:
         context={
             'get_task':get_task,
         }
         return render(request,'edit_task.html',context)
-        
+    
+    
+# function for deleting the data
+def delete_task(request,pk):
+    task = get_object_or_404(Task,pk=pk)
+    task.delete()
+    return redirect ('home')
+            

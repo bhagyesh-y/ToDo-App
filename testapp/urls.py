@@ -9,6 +9,8 @@ urlpatterns = [
     # Mark as Undone
     path('undone_task/<int:pk>',views.undone_task,name='undone_task'),
     # Edit
-    path('edit_task/<int:pk>',views.edit_task,name='edit_task')
+    path('edit_task/<int:pk>',views.edit_task,name='edit_task'),
+    # Delete
+    path('delete_task/<int:pk>',views.delete_task,name='delete_task')
     
 ]
