@@ -2,36 +2,103 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Task</title>
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- Theme Styles (Same as Home) -->
+    <style>
+        body {
+            background-color: #eaf2ff;
+            font-family: "Segoe UI", system-ui, sans-serif;
+        }
+
+        .page-title {
+            color: #1f2a44;
+            font-weight: 600;
+        }
+
+        .task-card {
+            background-color: #f3f0ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 12px;
+        }
+
+        .form-control {
+            padding: 1.1rem 0.75rem;
+        }
+
+        .btn-primary {
+            background-color: #1f2a44;
+            border-color: #1f2a44;
+        }
+
+        .btn-primary:hover {
+            background-color: #162036;
+            border-color: #162036;
+        }
+
+        @media (max-width: 576px) {
+            .form-control {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <h3 class="pt-5 pb-5 text-center">Django TODO APP - Edit Task</h3>
-        <!-- To Do Form -->
-        <form action="{% url 'edit_task' get_task.id %}" method="POST" style="width: 500px; margin:auto">
-            {% csrf_token %}
-            <div class="form-group">
-                <span style="display: flex;">
-                    <input type="text" name="task_name" class="form-control" placeholder="Add task name" required
-                        value="{{ get_task.task_name}}">
-                    <input type="text" name="task_desc" class="form-control" placeholder="Add task description" required
-                        value="{{get_task.task_desc}}">
-                    <button type="submit" class="btn btn-primary" style="width: 200px;"><i class="fa fa-plus"></i>
-                        Update</button>
-                </span>
+        <h3 class="text-center page-title mt-5 mb-4">Edit Task</h3>
+
+        <!-- Edit Task Card -->
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card task-card shadow-sm p-4">
+                    <form action="{% url 'edit_task' get_task.id %}" method="POST">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label">Task Title</label>
+                            <input type="text" name="task_name" class="form-control" value="{{ get_task.task_name }}"
+                                required />
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Task Description</label>
+                            <input type="text" name="task_desc" class="form-control" value="{{ get_task.task_desc }}"
+                                required />
+                        </div>
+
+                        <div class="d-flex flex-column flex-sm-row gap-2 justify-content-between">
+
+                            <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-save"></i> Update Task
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
 </body>
 
