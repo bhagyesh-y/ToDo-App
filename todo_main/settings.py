@@ -20,16 +20,6 @@ DEBUG = os.getenv("DEBUG") =="True"
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
 
 
-if os.getenv("CREATE_SUPERUSER") == "True":
-    from django.contrib.auth import get_user_model
-    User = get_user_model()
-    if not User.objects.filter(username="admin").exists():
-        User.objects.create_superuser(
-            "dell",
-            "bhagyeshyadav29@gmail.com",
-            "precision@123"
-        )
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
