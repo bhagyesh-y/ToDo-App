@@ -17,7 +17,8 @@ import dj_database_url
 
 SECRET_KEY=os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG") =="True"
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -86,7 +87,7 @@ DATABASES = {
     'default': dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
         conn_max_age=600,
-        ssl_require=True
+        ssl_require=bool(os.getenv("DATABASE_SSL", False)),
     )
 }
 

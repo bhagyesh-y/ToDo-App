@@ -33,7 +33,7 @@ def Home(request):
         user=request.user,
         is_completed=False).order_by('-updated_at') # order by will show data in ascending order and if passed as negative it will show in descending order
     #filter takes if condition as parameter for retrieving data from task model form db
-    completed_tasks = Task.objects.filter(user=request.user,is_completed=True)
+    completed_tasks = Task.objects.filter(user=request.user,is_completed=True) # fetching completed tasks.
     context={
         'tasks':tasks,
         'completed_tasks':completed_tasks,
